@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pizza Order Chatbot</title>
+  <style>
+  df-messenger {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100vw;
+    height: 98vh;
+    z-index: 9999;
+  }
+</style>
+
+</head>
+<body>
+  <header>
+    <h1>Pizza Order Chatbot</h1>
+  </header>
+
+  <p>Ask me about Pizza flavours and overview!</p>
+
+  <!-- Dialogflow Chatbot -->
+<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<df-messenger
+  intent="WELCOME"
+  chat-title="PizzaOrderBot"
+  agent-id="41a2ec6c-dfc0-4ea2-a083-fe5a63c3e0b0"
+  language-code="en"
+></df-messenger>
+
+  <footer>
+    Prepared by: <b>Syeda Sabahat Abid</b>
+  </footer>
+</body>
+</html>
+
+
+
