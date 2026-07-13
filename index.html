@@ -4,39 +4,221 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pizza Order Chatbot</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
-  df-messenger {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    width: 100vw;
-    height: 98vh;
-    z-index: 9999;
-  }
-</style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #1a1a2e;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #c0392b, #e74c3c);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+
+    header .logo {
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    header .brand h1 {
+      font-size: clamp(1.2rem, 4vw, 1.8rem);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    header .brand p {
+      font-size: 0.8rem;
+      opacity: 0.85;
+      margin-top: 2px;
+    }
+
+    /* ── Hero Section ── */
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 48px 24px 160px;
+      gap: 20px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(231, 76, 60, 0.2);
+      border: 1px solid rgba(231, 76, 60, 0.5);
+      border-radius: 999px;
+      padding: 6px 18px;
+      font-size: 0.8rem;
+      color: #f1948a;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .hero h2 {
+      font-size: clamp(1.6rem, 5vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.25;
+      max-width: 600px;
+    }
+
+    .hero h2 span {
+      color: #e74c3c;
+    }
+
+    .hero p {
+      font-size: clamp(0.9rem, 2.5vw, 1.05rem);
+      opacity: 0.7;
+      max-width: 480px;
+      line-height: 1.7;
+    }
+
+    /* Feature pills */
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 8px;
+    }
+
+    .feature-pill {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 999px;
+      padding: 7px 16px;
+      font-size: 0.82rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      backdrop-filter: blur(6px);
+    }
+
+    /* Chat hint arrow */
+    .chat-hint {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      opacity: 0.5;
+      font-size: 0.8rem;
+      animation: bounce 2s infinite;
+    }
+
+    .chat-hint svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(6px); }
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: rgba(255,255,255,0.04);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+      padding: 14px 24px;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    footer b {
+      color: #e74c3c;
+      font-weight: 600;
+    }
+
+    /* ── Dialogflow Messenger ── */
+    df-messenger {
+      --df-messenger-bot-message: #2c2c54;
+      --df-messenger-button-titlebar-color: #c0392b;
+      --df-messenger-chat-background-color: #1a1a2e;
+      --df-messenger-font-color: #ffffff;
+      --df-messenger-send-icon: #e74c3c;
+      --df-messenger-user-message: #c0392b;
+      z-index: 9999;
+    }
+
+    /* ── Responsive tweaks ── */
+    @media (max-width: 480px) {
+      .features {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
 </head>
 <body>
+
+  <!-- Header -->
   <header>
-    <h1>Pizza Order Chatbot</h1>
+    <div class="logo">🍕</div>
+    <div class="brand">
+      <h1>Pizza Order Chatbot</h1>
+      <p>Hot, fresh & delivered fast</p>
+    </div>
   </header>
 
-  <p>Ask me about Pizza flavours and overview!</p>
+  <!-- Hero -->
+  <main class="hero">
+    <div class="hero-badge">
+      <span>🤖</span> AI Powered
+    </div>
 
-  <!-- Dialogflow Chatbot -->
-<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
-<df-messenger
-  intent="WELCOME"
-  chat-title="PizzaOrderBot"
-  agent-id="41a2ec6c-dfc0-4ea2-a083-fe5a63c3e0b0"
-  language-code="en"
-></df-messenger>
+    <h2>Order your <span>perfect pizza</span><br>in seconds</h2>
 
+    <p>Chat with our smart bot to explore flavours, customize your order, and get it delivered right to your door.</p>
+
+    <div class="features">
+      <div class="feature-pill">🧀 Explore Flavours</div>
+      <div class="feature-pill">🛒 Easy Ordering</div>
+      <div class="feature-pill">⚡ Instant Replies</div>
+      <div class="feature-pill">🚚 Fast Delivery</div>
+    </div>
+
+    <div class="chat-hint">
+      <span>Chat below</span>
+      <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+  </main>
+
+  <!-- Footer -->
   <footer>
     Prepared by: <b>Syeda Sabahat Abid</b>
   </footer>
+
+  <!-- Dialogflow Chatbot -->
+  <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+  <df-messenger
+    intent="WELCOME"
+    chat-title="PizzaOrderBot"
+    agent-id="41a2ec6c-dfc0-4ea2-a083-fe5a63c3e0b0"
+    language-code="en"
+  ></df-messenger>
+
 </body>
 </html>
-
-
-
