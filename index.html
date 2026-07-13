@@ -56,7 +56,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 48px 24px 160px;
+      padding: 48px 24px 140px;
       gap: 20px;
     }
 
@@ -160,14 +160,42 @@
       --df-messenger-font-color: #ffffff;
       --df-messenger-send-icon: #e74c3c;
       --df-messenger-user-message: #c0392b;
+      --df-messenger-minimized-chat-close-icon-color: #ffffff;
+      --df-messenger-chat-window-height: 500px;
+      --df-messenger-chat-window-width: 380px;
       z-index: 9999;
+      position: fixed;
+      bottom: 16px;
+      right: 16px;
     }
 
     /* ── Responsive tweaks ── */
-    @media (max-width: 480px) {
+
+    /* Mobile: full-width chat window */
+    @media (max-width: 600px) {
+      df-messenger {
+        --df-messenger-chat-window-width: calc(100vw - 32px);
+        --df-messenger-chat-window-height: 65vh;
+        bottom: 12px;
+        right: 12px;
+        left: 12px;
+      }
+
+      .hero {
+        padding-bottom: 100px;
+      }
+
       .features {
         flex-direction: column;
         align-items: center;
+      }
+    }
+
+    /* Tablet */
+    @media (min-width: 601px) and (max-width: 900px) {
+      df-messenger {
+        --df-messenger-chat-window-width: 340px;
+        --df-messenger-chat-window-height: 480px;
       }
     }
   </style>
@@ -218,6 +246,7 @@
     chat-title="PizzaOrderBot"
     agent-id="41a2ec6c-dfc0-4ea2-a083-fe5a63c3e0b0"
     language-code="en"
+    expand="true"
   ></df-messenger>
 
 </body>
